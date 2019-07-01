@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { block } from 'shared/helpers/bem';
 
-import { DomainConfiguration } from 'features/createDomain';
+import { Todos } from 'features/manageTodos';
 import { Layout } from 'shared/view';
 
 const b = block('domain');
@@ -11,7 +11,7 @@ class Domain extends React.PureComponent {
     const { } = this.props;
     return (
       <Layout>
-        <div className={b()}><DomainConfiguration /></div>
+        <div className={b()}><Todos /></div>
       </Layout>
     );
   }

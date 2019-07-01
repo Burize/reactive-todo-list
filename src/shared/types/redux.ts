@@ -1,18 +1,4 @@
-import { Reducer } from 'redux';
-import { SagaIterator } from 'redux-saga';
-
-import { namespace as CreateDomainNamespace } from 'features/createDomain';
 import { Api } from 'services/api';
-
-export interface IReduxEntry<EntryState> {
-  reducer: Reducer<EntryState>;
-  sagas?: RootSaga[];
-}
-export type RootSaga = (deps: IDependencies) => SagaIterator;
-
-export interface IAppReduxState {
-  createDomain: CreateDomainNamespace.IReduxState;
-}
 
 export interface IPlainAction<T> {
   type: T;

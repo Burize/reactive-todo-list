@@ -13,7 +13,7 @@
       "command": "node node_modules/.bin/webpack-dev-server --config webpack.config.ts",
       "env": {
         "NODE_ENV": "development",
-        "API_URL": "http://localhost:3030/",
+        "API_URL": "http://localhost:3000/",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es5\", \"module\": \"commonjs\"}"
       }
     },
@@ -21,7 +21,7 @@
       "command": "node node_modules/.bin/webpack-dev-server --config webpack.config.ts",
       "env": {
         "NODE_ENV": "production",
-        "API_URL": "http://localhost:3030/",
+        "API_URL": "http://localhost:3000/",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es5\", \"module\": \"commonjs\"}"
       }
     },
@@ -30,7 +30,7 @@
       "env": {
         "WITH_ANALYZE_MODE": true,
         "NODE_ENV": "development",
-        "API_URL": "http://localhost:3030/",
+        "API_URL": "http://localhost:3000/",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es5\", \"module\": \"commonjs\"}"
       }
     }
@@ -54,6 +54,7 @@
     "autoprefixer": "^9.5.1",
     "awesome-typescript-loader": "^5.2.1",
     "axios": "^0.18.0",
+    "axios-observable": "^1.1.1",
     "babel-loader": "^8.0.5",
     "classnames": "^2.2.6",
     "css-loader": "^2.1.1",
@@ -78,6 +79,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
+    "rxjs": "^6.5.2",
     "sass-loader": "^7.1.0",
     "ts-loader": "^5.4.4",
     "ts-node": "^8.1.0",

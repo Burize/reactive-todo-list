@@ -1,0 +1,12 @@
+.todo-list {
+  &__todo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    cursor: pointer;
+    &_selected {
+      color: red;
+    } 
+  }
+}
