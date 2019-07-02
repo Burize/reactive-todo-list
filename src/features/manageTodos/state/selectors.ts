@@ -1,12 +1,13 @@
-import { todosState$ } from './createState';
 import { map } from 'rxjs/operators';
 
-import { Api } from 'services/api';
+import { makeSelectCommunication } from 'shared/helpers/reactive';
 
-const api = new Api();
+import { dataState$, communicationState } from './entry';
 
 export function selectTodos() {
-  return todosState$.pipe(
+  return dataState$.pipe(
     map(state => state.todos),
   );
 }
+
+export const selectCommunication = makeSelectCommunication(communicationState);

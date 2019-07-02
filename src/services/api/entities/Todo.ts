@@ -23,8 +23,7 @@ class Todo extends BaseApi {
       url: '/note',
       data: convertTodoToRequest(fields),
     }).pipe(
-      map(response => response.data),
-      map(convertServerTodo),
+      map(response => this.handleResponse(response, convertServerTodo)),
     );
   }
 

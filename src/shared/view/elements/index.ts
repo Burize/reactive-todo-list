@@ -8,6 +8,8 @@ export { default as Message } from 'antd/lib/message';
 import 'antd/lib/message/style/index.less';
 export { default as Notification } from 'antd/lib/notification';
 import 'antd/lib/notification/style/index.less';
+export { default as Modal } from 'antd/lib/modal';
+import 'antd/lib/modal/style/index.less';
 
 export { default as Icon } from 'antd/lib/icon';
 

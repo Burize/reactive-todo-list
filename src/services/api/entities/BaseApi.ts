@@ -22,14 +22,13 @@ class BaseApi {
     converter?: Converter<ResponseData, Result> | null,
   ): Result | void {
     if (isErrorStatus(response.status)) {
-      const request = response.request;
       const apiError = new ApiError({
         data: response.data,
         status: response.statusText,
         code: response.status,
         headers: response.headers,
-        request,
-        response: request.response,
+        request: response.request,
+        response,
       });
       throw apiError;
     }

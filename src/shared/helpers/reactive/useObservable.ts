@@ -1,9 +1,17 @@
 import * as React from 'react';
 import { Observable, Subject } from 'rxjs';
 
-export default function useObservable<State, Action>(
+function useObservable<State, Action>(
   createState: (action: Observable<Action>) => Observable<State>,
-  initialState?: State): [State | undefined, (action: Action) => void] {
+  initialState: State,
+): [State, (action: Action) => void];
+function useObservable<State, Action>(
+  createState: (action: Observable<Action>) => Observable<State>,
+): [State | undefined, (action: Action) => void];
+function useObservable<State, Action>(
+  createState: (action: Observable<Action>) => Observable<State>,
+  initialState?: State,
+): [State | undefined, (action: Action) => void] {
 
   const [state, setState] = React.useState<State | undefined>(initialState);
 
@@ -23,3 +31,5 @@ export default function useObservable<State, Action>(
 
   return [state, pushValue];
 }
+
+export default useObservable;

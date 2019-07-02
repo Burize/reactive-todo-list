@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { from, merge } from 'rxjs';
-import { useObservable } from 'shared/helpers/reactive';
-import { ITodo } from 'shared/types/models';
-import { scan } from 'rxjs/operators';
+import { merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { Spinner, Modal, Button } from 'shared/view/elements';
+import { useObservable, useCommunicationObserver } from 'shared/helpers/reactive';
+import { ITodo } from 'shared/types/models';
 import { block } from 'shared/helpers/bem';
 
 import { TodoList, NewTodo } from '../../components';
@@ -16,9 +17,15 @@ const b = block('todos');
 function Todos() {
 
   const [todos] = useObservable<ITodo[], ITodo>(() => (
-    merge(
-      selectors.selectTodos(),
-    )
+    selectors.selectTodos()
+  ));
+
+  const [loadingTodos] = useCommunicationObserver(() => (
+    selectors.selectCommunication('loadingTodos')
+  ));
+
+  const [creatingTodo] = useCommunicationObserver(() => (
+    selectors.selectCommunication('creatingTodo')
   ));
 
   React.useEffect(() => {
@@ -33,11 +40,32 @@ function Todos() {
     actions.deleteTodo(todoId);
   }, []);
 
+  const [error, setError] = useObservable<string, string>((event$) => {
+    return merge(
+      selectors.selectCommunication('creatingTodo').pipe(map(communication => communication.error)),
+      event$);
+  }, '');
+
   return (
-    <div className={b()}>
-      <NewTodo onCreate={createTodo} />
-      {todos && <TodoList todos={todos} onDelete={deleteTodo} />}
-    </div>
+    <>
+      <div className={b()}>
+        <Spinner spinning={loadingTodos.isRequesting} size="large" tip="Loading ...">
+          <NewTodo onCreate={createTodo} isLoading={creatingTodo.isRequesting} />
+          {todos && <TodoList todos={todos} onDelete={deleteTodo} />}
+        </Spinner>
+      </div>
+      <Modal
+        title="There is some error ..."
+        visible={!!error}
+        footer={[
+          <Button key="submit" type="primary" onClick={setError.bind(null, false)}>
+            ok
+          </Button>,
+        ]}
+      >
+        <p>{error}</p>
+      </Modal>
+    </>
   );
 }
 

@@ -10,11 +10,12 @@ import './NewTodo.scss';
 const b = block('new-todo');
 
 interface IProps {
+  isLoading: boolean;
   onCreate(title: string, description: string): void;
 }
 
 function NewTodo(props: IProps) {
-  const { onCreate } = props;
+  const { onCreate, isLoading } = props;
 
   const [title, setTitle] = useObservable<string, React.ChangeEvent<HTMLInputElement>>((event$) => {
     return event$.pipe(map(event => event.target.value));
@@ -32,7 +33,7 @@ function NewTodo(props: IProps) {
     <div className={b()}>
       <input onChange={setTitle} value={title} />
       <textarea onChange={setDescription} value={description} />
-      <Button onClick={createTodo}>Create</Button>
+      <Button disabled={isLoading} onClick={createTodo}>Create</Button>
     </div>
   );
 }
