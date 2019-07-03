@@ -1,6 +1,6 @@
 
 export const routes = {
-  domain: '/domain',
+  todos: '/todos',
 };
 
-export const defaultRoute = routes.domain;
+export const defaultRoute = routes.todos;
