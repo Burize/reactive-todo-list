@@ -65,7 +65,8 @@ function Todos() {
           </div>
           {notification &&
             <Alert
-              message={notification.payload.body}
+              message={notification.payload.title}
+              description={notification.payload.body}
               type="warning"
               onClose={closeNotification}
               closable
