@@ -44,8 +44,13 @@ function Todos() {
   const [error, setError] = useObservable<string, string>((event$) => {
     return merge(
       selectors.selectCommunication('creatingTodo').pipe(map(communication => communication.error)),
+      selectors.selectCommunication('loadingTodos').pipe(map(communication => communication.error)),
       event$);
   }, '');
+
+  const closeErrorModal = React.useCallback(() => {
+    setError('');
+  }, []);
 
   const [notification, setNotification] = useObservable<Message | null, Message | null>(
     (action$) => {
@@ -79,7 +84,7 @@ function Todos() {
         title="There is some error ..."
         visible={!!error}
         footer={[
-          <Button key="submit" type="primary" onClick={setError.bind(null, false)}>
+          <Button key="submit" type="primary" onClick={closeErrorModal}>
             ok
           </Button>,
         ]}
