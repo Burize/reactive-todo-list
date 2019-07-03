@@ -1,2 +1,2 @@
 export { selectors } from './state';
-export { default as MessageService } from './MessageService';
+export { default as messageService } from './MessageService';

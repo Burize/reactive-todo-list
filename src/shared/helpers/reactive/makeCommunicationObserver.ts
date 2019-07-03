@@ -1,4 +1,4 @@
-import { ICommunication, IPlainAction, IPlainFailAction } from 'shared/types/redux';
+import { ICommunication, IPlainAction, IPlainFailAction } from 'shared/types/reactive';
 import { Observable } from 'rxjs';
 import { scan, startWith } from 'rxjs/operators';
 

@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 
-import { ICommunication } from 'shared/types/redux';
+import { ICommunication } from 'shared/types/reactive';
 
 import useObservable from './useObservable';
 
-import { initialCommunicationField } from '../redux';
+import { initialCommunicationField } from './initialCommunicationField';
 
 export default function useCommunicationObserver(
   createState: () => Observable<ICommunication<string>>) {

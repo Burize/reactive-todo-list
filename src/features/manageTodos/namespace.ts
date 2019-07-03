@@ -1,5 +1,5 @@
 import { ITodo } from 'shared/types/models';
-import { IPlainAction, IAction, IPlainFailAction } from 'shared/types/redux';
+import { IPlainAction, IAction, IPlainFailAction } from 'shared/types/reactive';
 
 export interface ITodosState {
   todos: ITodo[];

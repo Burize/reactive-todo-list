@@ -1,5 +1,3 @@
-import { Api } from 'services/api';
-
 export interface IPlainAction<T> {
   type: T;
 }
@@ -15,8 +13,4 @@ export interface IPlainFailAction<T, E = string> extends IPlainAction<T> {
 export interface ICommunication<E = string> {
   isRequesting: boolean;
   error: E;
-}
-
-export interface IDependencies {
-  api: Api;
 }

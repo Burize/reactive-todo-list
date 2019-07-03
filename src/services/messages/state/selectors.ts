@@ -1,4 +1,5 @@
 import { map } from 'rxjs/operators';
+
 import { dataState$ } from './entry';
 
 export function selectAllMessages() {
