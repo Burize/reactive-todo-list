@@ -19,6 +19,9 @@ Acceptable format is JSON, like:
 {"title": "title from push", "body": "body from push"}
 ```
 
+---
+You can test server side error via creating todo with `error` title.
+
 ### Project launch
 For working you need [back-end rest server](https://github.com/Burize/reactive-todo-list-server). Clone it and launch.
 
