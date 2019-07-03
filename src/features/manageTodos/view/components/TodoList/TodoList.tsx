@@ -1,12 +1,12 @@
 import * as React from 'react';
 
+import { Icon, Collapse } from 'shared/view/elements';
 import { ITodo } from 'shared/types/models';
 import { block } from 'shared/helpers/bem';
 
 import './TodoList.scss';
-import { useObservable } from 'shared/helpers/reactive';
-import { Icon } from 'shared/view/elements';
 
+const { Panel } = Collapse;
 const b = block('todo-list');
 
 interface IProps {
@@ -16,28 +16,39 @@ interface IProps {
 
 function TodoList(props: IProps) {
   const { todos, onDelete } = props;
-
-  const [selectedTodoId, setSelectedId] = useObservable<string, string>(selectedId$ => {
-    return selectedId$;
-  }, todos[0] && todos[0].id);
-
-  const removeTodo = React.useCallback(() => {
-    selectedTodoId && onDelete(selectedTodoId);
-  }, [selectedTodoId]);
   return (
-    <div className={b()}>
-      {todos.map(todo => {
-        const isSelected = todo.id === selectedTodoId;
-        return (
-          <div
-            key={todo.id}
-            className={b('todo', { selected: isSelected })}
-            onClick={setSelectedId.bind(null, todo.id)}
-          >
-            <span>{todo.title}</span>
-            {isSelected && <span onClick={removeTodo}>{<Icon type="delete" />}</span>}
-          </div>);
-      })}
+    <Collapse accordion className={b()}>
+      {todos.map(todo => (
+        <Panel
+          key={todo.id}
+          header={todo.title}
+        >
+          <Todo todo={todo} onDelete={onDelete} />
+        </Panel>))}
+    </Collapse>
+  );
+}
+
+const todoB = block('list-todo');
+
+interface ITodoProps {
+  todo: ITodo;
+  onDelete(id: string): void;
+}
+
+function Todo(props: ITodoProps) {
+  const { todo, onDelete } = props;
+
+  const remove = React.useCallback(() => {
+    onDelete(todo.id);
+  }, []);
+
+  return (
+    <div className={todoB()}>
+      <p>{todo.description}</p>
+      <div className={todoB('footer')}>
+        <Icon type="delete" onClick={remove} className={todoB('remove-icon')} />
+      </div>
     </div>
   );
 }

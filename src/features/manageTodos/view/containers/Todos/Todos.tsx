@@ -2,10 +2,11 @@ import * as React from 'react';
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Spinner, Modal, Button } from 'shared/view/elements';
+import { Spinner, Modal, Button, Alert } from 'shared/view/elements';
 import { useObservable, useCommunicationObserver } from 'shared/helpers/reactive';
-import { ITodo } from 'shared/types/models';
+import { ITodo, Message } from 'shared/types/models';
 import { block } from 'shared/helpers/bem';
+import { selectors as messagesSelector } from 'services/messages';
 
 import { TodoList, NewTodo } from '../../components';
 import { selectors, actions } from '../../../state';
@@ -46,11 +47,30 @@ function Todos() {
       event$);
   }, '');
 
+  const [notification, setNotification] = useObservable<Message | null, Message | null>(
+    (action$) => {
+      return merge(action$, messagesSelector.selectLastMessage());
+    }, null);
+
+  const closeNotification = React.useCallback(() => {
+    setNotification(null);
+  }, []);
+
   return (
     <>
       <div className={b()}>
         <Spinner spinning={loadingTodos.isRequesting} size="large" tip="Loading ...">
-          <NewTodo onCreate={createTodo} isLoading={creatingTodo.isRequesting} />
+          <div className={b('new-todo')}>
+            <NewTodo onCreate={createTodo} isLoading={creatingTodo.isRequesting} />
+          </div>
+          {notification &&
+            <Alert
+              message={notification.payload.body}
+              type="warning"
+              onClose={closeNotification}
+              closable
+            />
+          }
           {todos && <TodoList todos={todos} onDelete={deleteTodo} />}
         </Spinner>
       </div>

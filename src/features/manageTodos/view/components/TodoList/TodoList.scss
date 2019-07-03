@@ -10,3 +10,15 @@
     } 
   }
 }
+
+.list-todo {
+
+  &__remove-icon {
+    cursor: pointer;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

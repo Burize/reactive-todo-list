@@ -1,16 +1,14 @@
 import * as React from 'react';
-// import { Provider } from 'react-redux';
 import { Switch, BrowserRouter, Redirect } from 'react-router-dom';
 
 import * as modules from 'modules';
 import { defaultRoute } from 'modules/routes';
 
-// import configureStore from './configure/configureStore';
-
 import 'shared/styles/fonts/index.scss';
-import './App.scss';
 
-// const { store } = configureStore();
+import './registerWorkers';
+
+import './App.scss';
 
 const App = () => {
   return (

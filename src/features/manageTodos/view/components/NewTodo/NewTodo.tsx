@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 
 import { useObservable } from 'shared/helpers/reactive';
 import { block } from 'shared/helpers/bem';
-import { Button } from 'shared/view/elements';
+import { Button, TextInput, TextArea } from 'shared/view/elements';
 
 import './NewTodo.scss';
 
@@ -26,14 +26,14 @@ function NewTodo(props: IProps) {
   }, 'write something interesting');
 
   const createTodo = React.useCallback(() => {
-    title && description && onCreate(title, description); // TODO: try rework
+    onCreate(title, description);
   }, [title, description, onCreate]);
 
   return (
     <div className={b()}>
-      <input onChange={setTitle} value={title} />
-      <textarea onChange={setDescription} value={description} />
-      <Button disabled={isLoading} onClick={createTodo}>Create</Button>
+      <TextInput onChange={setTitle} value={title} />
+      <TextArea onChange={setDescription} value={description} />
+      <Button block disabled={isLoading} type="primary" onClick={createTodo}>Create</Button>
     </div>
   );
 }
